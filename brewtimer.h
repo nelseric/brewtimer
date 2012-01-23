@@ -15,6 +15,9 @@ public:
     explicit BrewTimer(QWidget *parent = 0);
     ~BrewTimer();
     
+private slots:
+    void on_actionOpen_triggered();
+
 private:
     Ui::BrewTimer *ui;
 };
