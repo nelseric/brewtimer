@@ -18,6 +18,8 @@ public:
 private slots:
     void on_actionOpen_triggered();
 
+    void on_actionRecipe_triggered();
+
 private:
     Ui::BrewTimer *ui;
 };

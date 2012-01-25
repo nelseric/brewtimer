@@ -45,8 +45,18 @@ void printNode(QDomNode *node){
         qDebug() << indent << "<" << name << ">={" << value << "}";
         ilvl++;
         for(int i = 0;  i < node->childNodes().count(); i++){
-            printNode(&node->childNodes().item(i));
+            QDomNode item = node->childNodes().item(i);
+            printNode(&item);
         }
         ilvl--;
+    }
+}
+
+void BrewTimer::on_actionRecipe_triggered()
+{
+    if (ui->stackedWidget->currentIndex() == 0) {
+        ui->stackedWidget->setCurrentIndex(1);
+    }else {
+        ui->stackedWidget->setCurrentIndex(0);
     }
 }
