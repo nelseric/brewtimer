@@ -60,3 +60,17 @@ void BrewTimer::on_actionRecipe_triggered()
         ui->stackedWidget->setCurrentIndex(0);
     }
 }
+
+void BrewTimer::on_actionQuit_triggered()
+{
+    exit(3);
+}
+
+void BrewTimer::on_actionFullscreen_triggered()
+{
+    if (this->isFullScreen()) {
+        this->showNormal();
+    } else {
+        this->showFullScreen();
+    }
+}

@@ -20,6 +20,10 @@ private slots:
 
     void on_actionRecipe_triggered();
 
+    void on_actionQuit_triggered();
+
+    void on_actionFullscreen_triggered();
+
 private:
     Ui::BrewTimer *ui;
 };
