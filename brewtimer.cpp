@@ -74,3 +74,21 @@ void BrewTimer::on_actionFullscreen_triggered()
         this->showFullScreen();
     }
 }
+
+void BrewTimer::on_actionStart_triggered()
+{
+    brewTimer = new QTimer(this);
+    brewTimer->setInterval(1000);
+    brewTimer->start();
+    QObject::connect(brewTimer, SIGNAL(timeout()), this, SLOT(TimeOut()));
+
+}
+
+void BrewTimer::on_actionStop_triggered()
+{
+    brewTimer->stop();
+}
+
+void TimeOut() {
+
+}

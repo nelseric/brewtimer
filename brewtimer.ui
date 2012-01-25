@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>991</width>
+    <width>1005</width>
     <height>567</height>
    </rect>
   </property>
@@ -472,9 +472,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpen"/>
+   <addaction name="separator"/>
    <addaction name="actionStart"/>
    <addaction name="actionStop"/>
+   <addaction name="separator"/>
    <addaction name="actionRecipe"/>
+   <addaction name="actionSettings"/>
    <addaction name="actionAbout"/>
    <addaction name="separator"/>
    <addaction name="actionFullscreen"/>
@@ -513,6 +516,11 @@
   <action name="actionRecipe">
    <property name="text">
     <string>Recipe</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

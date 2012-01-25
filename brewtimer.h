@@ -24,6 +24,10 @@ private slots:
 
     void on_actionFullscreen_triggered();
 
+    void on_actionStart_triggered();
+
+    void on_actionStop_triggered();
+
 private:
     Ui::BrewTimer *ui;
 };
