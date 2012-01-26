@@ -4,17 +4,40 @@
 #include <QDebug>
 #include <QtXml>
 #include <QDomDocument>
+#include <QMessageBox>
+
 
 BrewTimer::BrewTimer(QWidget *parent) :
-        QMainWindow(parent),
-        ui(new Ui::BrewTimer)
+    QMainWindow(parent),
+    ui(new Ui::BrewTimer)
 {
     ui->setupUi(this);
+
+    //timer stuff
+    iTimer = new QTimer(this);
+    QObject::connect(iTimer, SIGNAL(timeout()), this, SLOT(showcurrentTime()));
+
+    //audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
+    mediaObject = new Phonon::MediaObject(this);
+
+    mediaObject->setCurrentSource(Phonon::MediaSource("alarm.mp3"));
+    audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
+    Phonon::createPath(mediaObject, audioOutput);
+
 }
 
 BrewTimer::~BrewTimer()
 {
     delete ui;
+}
+
+
+void BrewTimer::showcurrentTime()
+{
+    QTime times = (QTime::currentTime());
+    QString currentTime=times.toString("mm:ss");
+    ui->event_done_time->setText(currentTime);
+    ui->event_next_time->setText(currentTime);
 }
 
 void printNode(QDomNode *node);
@@ -31,20 +54,20 @@ void BrewTimer::on_actionOpen_triggered()
 
 }
 int ilvl = 0;
-void printNode(QDomNode *node){
+void printNode(QDomNode *node) {
     QString indent("");
-    for(int i = 0; i < ilvl; i ++){
+    for(int i = 0; i < ilvl; i ++) {
         indent += "\t";
     }
     QString name = node->nodeName();
     QString value = node->nodeValue();
-    if(node->childNodes().count() == 1){
+    if(node->childNodes().count() == 1) {
         value = node->childNodes().item(1).nodeValue();
         qDebug() << indent << "<" << name << ">={" << value << "}";
     } else {
         qDebug() << indent << "<" << name << ">={" << value << "}";
         ilvl++;
-        for(int i = 0;  i < node->childNodes().count(); i++){
+        for(int i = 0;  i < node->childNodes().count(); i++) {
             QDomNode item = node->childNodes().item(i);
             printNode(&item);
         }
@@ -56,7 +79,7 @@ void BrewTimer::on_actionRecipe_triggered()
 {
     if (ui->stackedWidget->currentIndex() == 0) {
         ui->stackedWidget->setCurrentIndex(1);
-    }else {
+    } else {
         ui->stackedWidget->setCurrentIndex(0);
     }
 }
@@ -77,18 +100,24 @@ void BrewTimer::on_actionFullscreen_triggered()
 
 void BrewTimer::on_actionStart_triggered()
 {
-    brewTimer = new QTimer(this);
-    brewTimer->setInterval(1000);
-    brewTimer->start();
-    QObject::connect(brewTimer, SIGNAL(timeout()), this, SLOT(TimeOut()));
+    iTimer->start();
 
 }
 
 void BrewTimer::on_actionStop_triggered()
 {
-    brewTimer->stop();
+    iTimer->stop();
 }
 
-void TimeOut() {
+
+void BrewTimer::on_actionAbout_triggered()
+{
+    mediaObject->play();
+    QMessageBox::information(this, tr("About Brew Timer"),
+                             tr("A Simple Home Brew Beer Timer - helps"
+                                " in the task of timing each process of homebrewing."));
 
 }
+
+
+

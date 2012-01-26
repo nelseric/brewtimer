@@ -3,13 +3,14 @@
 # -------------------------------------------------
 QT += core \
     gui \
-    xml
+    xml \
+    phonon
 TARGET = brewtimer
 TEMPLATE = app
 SOURCES += main.cpp \
     brewtimer.cpp
 HEADERS += brewtimer.h
 FORMS += brewtimer.ui
-INCLUDEPATH += 
+INCLUDEPATH +=
 OTHER_FILES += README.md \
     recipes.xml
